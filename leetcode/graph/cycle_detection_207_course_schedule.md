@@ -7,7 +7,7 @@ It is a classical cycle detection problem in a directed graph where each course 
 We use dfs to detect cycles.
 - Graph representation: we use an adjacency list to represent the graph. Each course points to a list of courses that depend on it. Here we use a function called buildGraph.
 - Cycle detection: For each traversal, we keep track of the path using a boolean array. If the next node which is about to be traversed exists on the path, a cycle is detected.
-- Avoid duplicated traversals, we keep track of the nodes which have been visited using a set.
+- Avoiding duplicated traversals, we keep track of the nodes which have been visited using a set.
 ## Complexity
 - Time complexity:
 - Space complexity:
@@ -43,17 +43,21 @@ class Solution {
         return graph;
     }
     void traverse(int start) {
-        if (visited.contains(start)) return;
         if (!can) return;
+        // The order of onPath check and visited check is very important.
+        // Think about a cycle 0 -> 1 -> 0, if you add 0 to your visited
+        // when you visit 0 the second time, you should check if it's onPath first
+        // Then check if it's in the visited set to determine whether continue or not.
         if (onPath[start]) {
             can = false;
             return;
         }
+        if (visited.contains(start)) return;
+        visited.add(start);
         onPath[start] = true;
         for (int i : graph[start]) {
             traverse(i);
         }
         onPath[start] = false;
-        visited.add(start);
     }
 }
