@@ -1,6 +1,6 @@
 # Cycle Detection
 ## LeetCode link
-[LeetCode](https://leetcode.com/problems/course-schedule/description/)
+[207. Course Schedule](https://leetcode.com/problems/course-schedule/description/)
 ## Intuition
 It is a classical cycle detection problem in a directed graph where each course is a node and each prerequisite is an edge. If there is a cycle in the graph, it means there exists contradiction, and one can not finish all courses.
 ## Approach
@@ -65,3 +65,4 @@ class Solution {
         onPath[start] = false;
     }
 }
+```
